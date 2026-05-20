@@ -19,14 +19,14 @@ nav{
 }
 
 /* Para as duas referências "a" */
-.nav a{
+nav a{
     color: rgb(82, 66, 0);
     text-decoration: none;
     padding: 10px;
 }
 
 /* Quando passar por cima das palavras */
-.nav a:hover {
+nav a:hover {
     color: #000;
     font-weight: Bold;
 }
