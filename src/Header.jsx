@@ -1,15 +1,13 @@
-import { useState } from 'react'
+import "./Header.css"
 import heroImg from './assets/hero.png'
 
 function Header() {
     return (
         <div>
-            <img src={heroImg} className="png" width="170" alt="" />
+            <logo><img src={heroImg} alt="Hero Vite" /></logo>
             <nav>
-                <ul>
-                    <li><a href="/home">Home</a></li>
-                    <li><a href="/contato">Contato</a></li>
-                </ul>
+                <a href="/home">HOME</a>
+                <a href="/contatos">CONTACTOS</a>
             </nav>
         </div>
     )
