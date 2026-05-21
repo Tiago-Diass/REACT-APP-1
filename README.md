@@ -19,3 +19,6 @@ If you are developing a production application, we recommend using TypeScript wi
 
 # Para iniciar o programa
 "npm run dev" no terminal
+
+# Icons
+https://www.flaticon.com/
