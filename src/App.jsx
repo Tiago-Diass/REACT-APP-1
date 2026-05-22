@@ -6,6 +6,9 @@ import './App.css'
 
 import Mensagem from './Mensagem';
 import Alerta from './Alerta';
+import Contador from './Contador';
+import Formulario from './Formulario';
+import Tarefas from './Tarefas';
 
 // Um componente React é uma função que devolve JSX (JavaScript + HTML)
 function App() {
@@ -23,14 +26,21 @@ function App() {
         Clica-me!
       </button>
 
+      <Contador />
+
       <h1 className="text-center">Componentes e Props</h1>
       {/* Cada componente recebe props diferentes */}
       <Mensagem texto="Bem-vindo à tua primeira aplicação React!" />
       <Mensagem texto="Os componentes permitem reutilizar código!" />
 
-      <Alerta texto="Este é um alerta do texto" tipo="success" />
-      <Alerta texto="Este é um alerta do texto" tipo="danger" />
-      <Alerta texto="Este é um alerta do texto" tipo="warning" />
+      <Alerta texto="Este é um alerta do texto" />
+      <Alerta tipo="success" texto="Este é um alerta de sucesso" />
+      <Alerta tipo="warning" texto="Este é um alerta de aviso" />
+      <Alerta tipo="danger" texto="Este é um alerta de perigo" />
+
+      <Formulario />
+
+      <Tarefas />
 
     </div>
   );
