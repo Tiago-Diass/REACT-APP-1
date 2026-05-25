@@ -15,7 +15,7 @@ function Tarefas() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        setDadosSubmetidos(formData);
+        //setDadosSubmetidos(formData);
 
         const novaTarefa = {
             id: Date.now(),
@@ -34,9 +34,9 @@ function Tarefas() {
     function newTarefa() {
         const novaTarefa = {
             id: Date.now(),
-            titulo: 'awfawfawf',
-            data: 'awgawg',
-            descricao: 'awgfawgwag'
+            titulo: '',
+            data: '',
+            descricao: ''
         };
         setFormData(novaTarefa);
         setTarefas([...tarefas, novaTarefa]);
