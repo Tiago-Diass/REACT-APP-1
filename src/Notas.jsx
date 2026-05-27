@@ -16,6 +16,10 @@ function Notas() {
             percAtitudes: ''
     });
 
+    const [dados, setDados] = useState([]);
+
+    const [resultado, setResultado] = useState({ media: null, mencao: '' });
+    
     function handleSubmit(e) {
         e.preventDefault();
 
@@ -33,18 +37,19 @@ function Notas() {
     }
 
     function verResultados() {
-        if(parseFloat(formData.percTestes) + parseFloat(formData.percTrabalhos) + parseFloat(formData.percAtitudes) !== 100) {
-            alert("As percentagens devem somar 100!");
-        } else if(parseFloat(formData.notaTestes) < 0 || parseFloat(formData.notaTestes) > 20 ||
-                parseFloat(formData.notaTrabalhos) < 0 || parseFloat(formData.notaTrabalhos) > 20 ||
-                parseFloat(formData.notaAtitudes) < 0 || parseFloat(formData.notaAtitudes) > 20) {
-            alert("As notas devem estar entre 0 e 20!");
+        if (parseFloat(formData.percTestes) + parseFloat(formData.percTrabalhos) + parseFloat(formData.percAtitudes) !== 100) {
+            alert("As percentagens devem somar 100%!");
+        } else if (parseFloat(formData.notaTestes) < 0 || parseFloat(formData.notaTestes) > 20 ||
+            parseFloat(formData.notaTrabalhos) < 0 || parseFloat(formData.notaTrabalhos) > 20 ||
+            parseFloat(formData.notaAtitudes) < 0 || parseFloat(formData.notaAtitudes) > 20) {
+            alert("As notas devem estar de 0 a 20!");
         } else {
             const notaFinal = (parseFloat(formData.notaTestes) * parseFloat(formData.percTestes) / 100) +
-                              (parseFloat(formData.notaTrabalhos) * parseFloat(formData.percTrabalhos) / 100) +
-                              (parseFloat(formData.notaAtitudes) * parseFloat(formData.percAtitudes) / 100);
-            alert(`A nota final do aluno ${formData.nomeAluno} na disciplina ${formData.disciplina} é: ${notaFinal.toFixed(2)}`);
-            verAprovacao(notaFinal);
+                (parseFloat(formData.notaTrabalhos) * parseFloat(formData.percTrabalhos) / 100) +
+                (parseFloat(formData.notaAtitudes) * parseFloat(formData.percAtitudes) / 100);
+            const media = notaFinal.toFixed(2);
+            const mencao = notaFinal >= 9.5 ? 'Aprovado' : 'Reprovado';
+            setResultado({ media, mencao });
         }
     }
 
@@ -55,17 +60,35 @@ function Notas() {
             alert("Reprovado");
         }
     }
-
-    function controlnotas(e){
+    
+    function limparFormulario() {
+        setFormData({
+            nomeAluno: '',
+            disciplina: '',
+            percTrabalhos: '',
+            percAtitudes: '',
+            notaTestes: '',
+            notaTrabalhos: '',
+            notaAtitudes: '',
+            percTestes: '',
+            percTrabalhos: '',
+            percAtitudes: ''
+        });
+    }
+    
+    function controlnotaTestes(e){
         const value = e.target.value;
         if (value < 0 ) {
-            setFormData({ ...formData, notaTeste: 0 });
+            setFormData({ ...formData, notaTestes: 0 });
         } else if (value > 20) {
-            setFormData({ ...formData, notaTeste: 20 });
+            setFormData({ ...formData, notaTestes: 20 });
         } else {
-            setFormData({ ...formData, notaTeste: value });
+            setFormData({ ...formData, notaTestes: value });
         }
+    }
 
+    function controlnotaTrabalhos(e){
+        const value = e.target.value;
         if (value < 0 ) {
             setFormData({ ...formData, notaTrabalhos: 0 });
         } else if (value > 20) {
@@ -73,7 +96,10 @@ function Notas() {
         } else {
             setFormData({ ...formData, notaTrabalhos: value });
         }
+    }
 
+    function controlnotaAtitudes(e){
+        const value = e.target.value;
         if (value < 0 ) {
             setFormData({ ...formData, notaAtitudes: 0 });
         } else if (value > 20) {
@@ -81,21 +107,6 @@ function Notas() {
         } else {
             setFormData({ ...formData, notaAtitudes: value });
         }
-    }
-
-    function limparFormulario() {
-        setFormData({
-            nomeAluno: '',
-            disciplina: '',
-            notaTestes: '',
-            percTrabalhos: '',
-            percAtitudes: '',
-            notaTrabalhos: '',
-            notaAtitudes: '',
-            percTestes: '',
-            percTrabalhos: '',
-            percAtitudes: ''
-        });
     }
 
     return (
@@ -125,25 +136,34 @@ function Notas() {
 
                 <div className="col-3">
                         <div className="form-group">
-                            <label>Nota dos Testes</label>
-                            <input type="number" className="form-control" step="1" min="0" max="20" value={formData.notaTestes} onChange={(e) =>
-                                setFormData({ ...formData, notaTestes: e.target.value})} required />
+                             <label htmlFor="notaTestes">Nota dos testes</label>
+                                <input type="number" className="form-control" id="notaTestes" placeholder="Insira a nota do teste" 
+                                value={formData.notaTestes} onChange={(e) => controlnotaTestes(e)} required />
                         </div>
 
                         <div className="form-group">
-                            <label>Nota dos Trabalhos:</label>
-                            <input type="number" className="form-control" step="1" min="0" max="20"value={formData.notaTrabalhos} onChange={(e) =>
-                                setFormData({ ...formData, notaTrabalhos: e.target.value })} required />
+                            <label htmlFor="notaTrabalhos">Nota dos Trabalhos:</label>
+                                <input type="number" className="form-control" id="notaTrabalhos" placeholder="Insira a nota dos trabalhos"
+                                value={formData.notaTrabalhos} onChange={(e) => controlnotaTrabalhos(e)} required />
                         </div>
 
                         <div className="form-group">
-                            <label>Nota das Atitudes:</label>
-                            <input type="number" className="form-control" step="1" min="0" max="20"value={formData.notaAtitudes} onChange={(e) =>
-                                setFormData({ ...formData, notaAtitudes: e.target.value })} required />
+                            <label htmlFor="notaAtitudes">Nota das Atitudes:</label>
+                            <input type="number" className="form-control" id="notaAtitudes" placeholder="Insira a nota das atitudes"
+                            value={formData.notaAtitudes} onChange={(e) => controlnotaAtitudes(e)} required />
                         </div>
 
                         <button type="button" className="btn btn-primary mr-2" onClick={verResultados}>Calcular</button>
                         <button type="button" className="btn btn-outline-danger" onClick={limparFormulario}>Limpar Formulário</button>
+                        
+                        {resultado.media && (
+                            <div className="col-12 mt-3">
+                                <h3>Resultado</h3>
+                                <p>Média: {resultado.media}</p>
+                                <p>Menção: {resultado.mencao}</p>
+                            </div>
+                        )}
+                        
                 </div>
 
                 <div className="col-3">
