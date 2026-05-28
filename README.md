@@ -17,8 +17,10 @@ If you are developing a production application, we recommend using TypeScript wi
 
 
 
+
+
 # Para iniciar o programa
-"npm run dev" no terminal
+"npm run dev" no terminal e abre a porta 5173
 
 # Icons
 https://www.flaticon.com/
